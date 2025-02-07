@@ -13,8 +13,12 @@
     <section>
         <form>
             <h2>Sign in</h2>
-            <button type="button">Sign in with Google</button>
-            <button type="button">Sign in with Apple</button>
+
+            <div class="social-buttons">
+                <button type="button" id="google-signin">Sign in with Google</button>
+                <button type="button" id="apple-signin">Sign in with Apple</button>
+            </div>
+
             <hr>
 
             <label for="login">Login</label>
@@ -23,7 +27,7 @@
             <label for="password">Password</label>
             <input type="password" placeholder="Password" id="password">
 
-            <label>
+            <label class="checkbox">
                 <input type="checkbox">Remember me
             </label>
 
