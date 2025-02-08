@@ -16,7 +16,7 @@ body {
 header,
 footer {
     text-align: center;
-    padding: 20px;
+    padding: 10px;
     background-color: #1f1f1f;
     box-shadow: 0 0 4px rgba(77, 77, 77, 0.4);
 }
@@ -91,7 +91,7 @@ button:focus {
 #google-signin:active,
 #apple-signin:active {
     background-color: #444444;
-    transform: scale(0.98);
+    transform: scale(0.95);
 }
 
 button[type="submit"] {
@@ -107,7 +107,7 @@ button[type="submit"]:hover {
 }
 
 button[type="submit"]:active {
-    transform: scale(0.98);
+    transform: scale(0.95);
 }
 
 button[type="submit"]:focus {
@@ -180,6 +180,7 @@ a:hover {
 @media (min-width: 1200px) {
     form {
         width: 30%;
+        max-width: 450px;
     }
 }
 

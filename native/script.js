@@ -17,21 +17,19 @@ document.getElementById("login-form").addEventListener("submit", function (e) {
     if (login.value.length < 5 || login.value.length > 20) {
         login.classList.add("shake");
         setTimeout(() => login.classList.remove("shake"), 300);
-        message.textContent = "Логин должен быть от 5 до 20 символов.";
+        message.textContent = "Логин должен быть от 5 до 20 символов";
         message.classList.add("show", "error");
         isValid = false;
     }
 
-    if (password.value.length < 5 || password.value.length > 20) {
-        password.classList.add("shake");
-        setTimeout(() => password.classList.remove("shake"), 300);
-        if (isValid) {
-            message.textContent = "Пароль должен быть от 5 до 20 символов.";
-        } else {
-            message.textContent += " Пароль должен быть от 5 до 20 символов.";
+    if (isValid) {
+        if (password.value.length < 5 || password.value.length > 20) {
+            password.classList.add("shake");
+            setTimeout(() => login.classList.remove("shake"), 300);
+            message.textContent = "Пароль должен быть от 5 до 20 символов";
+            message.classList.add("show", "error");
+            isValid = false;
         }
-        message.classList.add("show", "error");
-        isValid = false;
     }
 
     if (isValid) {
