@@ -25,7 +25,7 @@ document.getElementById("login-form").addEventListener("submit", function (e) {
     if (isValid) {
         if (password.value.length < 5 || password.value.length > 20) {
             password.classList.add("shake");
-            setTimeout(() => login.classList.remove("shake"), 300);
+            setTimeout(() => password.classList.remove("shake"), 300);
             message.textContent = "Пароль должен быть от 5 до 20 символов";
             message.classList.add("show", "error");
             isValid = false;
