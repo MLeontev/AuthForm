@@ -10,30 +10,31 @@
 <header><h1>Welcome!</h1></header>
 
 <main>
-    <section>
-        <form>
-            <h2>Sign in</h2>
+    <form id="login-form">
+        <h2>Sign in</h2>
 
-            <div class="social-buttons">
-                <button type="button" id="google-signin">Sign in with Google</button>
-                <button type="button" id="apple-signin">Sign in with Apple</button>
-            </div>
+        <div class="social-buttons">
+            <button type="button" id="google-signin">Sign in with Google</button>
+            <button type="button" id="apple-signin">Sign in with Apple</button>
+        </div>
 
-            <hr>
+        <hr>
 
-            <label for="login">Login</label>
-            <input type="text" placeholder="Login" id="login">
+        <label for="login">Login</label>
+        <input type="text" placeholder="Login" id="login">
 
-            <label for="password">Password</label>
-            <input type="password" placeholder="Password" id="password">
+        <label for="password">Password</label>
+        <input type="password" placeholder="Password" id="password">
 
-            <label class="checkbox">
-                <input type="checkbox">Remember me
-            </label>
+        <label class="checkbox">
+            <input type="checkbox" id="remember-checkbox">Remember me
+        </label>
 
-            <button type="submit">Sign in</button>
-        </form>
-    </section>
+        <button type="submit">Sign in</button>
+
+        <p id="message"></p>
+    </form>
+
 </main>
 
 <footer>
@@ -42,5 +43,6 @@
         <p>E-mail: <a href="mailto:maleontev@edu.hse.ru">maleontev@edu.hse.ru</a></p>
     </address>
 </footer>
+<script src="script.js"></script>
 </body>
 </html>

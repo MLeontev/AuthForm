@@ -36,11 +36,12 @@ h2 {
 
 form {
     background-color: #2a2a2a;
-    width: 400px;
-    padding: 30px 20px;
+    width: 90%;
+    padding: 20px;
     box-shadow: 0 0 4px rgba(77, 77, 77, 0.4);
     display: flex;
     flex-direction: column;
+    border-radius: 15px;
 }
 
 input,
@@ -71,14 +72,14 @@ button:focus {
 
 .social-buttons {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     gap: 10px;
 }
 
 #google-signin,
 #apple-signin {
-    flex: 1;
     margin: 0;
+    flex-grow: 1;
 }
 
 #google-signin:hover,
@@ -106,15 +107,10 @@ button[type="submit"]:hover {
 }
 
 button[type="submit"]:active {
-    background-color: #8a3cfc;
     transform: scale(0.98);
 }
 
 button[type="submit"]:focus {
-    background-color: #bb86fc;
-}
-
-input[type="checkbox"]:checked {
     background-color: #bb86fc;
 }
 
@@ -132,7 +128,63 @@ a:hover {
     text-decoration: underline;
 }
 
-@keyframes shake {
-    
+#message.show {
+    text-align: center;
+    margin-top: 20px;
 }
 
+#message.error {
+    color: red;
+}
+
+#message.success {
+    color: green;
+}
+
+@keyframes shake {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-5px, -5px); }
+    50% { transform: translate(5px, 5px); }
+    75% { transform: translate(-5px, 5px); }
+    100% { transform: translate(0, 0); }
+}
+
+.shake {
+    border-color: red;
+    animation: shake 0.3s ease-in-out;
+}
+
+@media (min-width: 576px) {
+    form {
+        width: 80%;
+    }
+
+    .social-buttons {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+@media (min-width: 768px) {
+    form {
+        width: 50%;
+    }
+}
+
+@media (min-width: 992px) {
+    form {
+        width: 40%;
+    }
+}
+
+@media (min-width: 1200px) {
+    form {
+        width: 30%;
+    }
+}
+
+@media (min-width: 1400px) {
+    form {
+        width: 25%;
+    }
+}
