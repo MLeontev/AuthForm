@@ -1,8 +1,8 @@
 document.getElementById("login-form")?.addEventListener("submit", function (e) {
   e.preventDefault();
 
-  const validLogin: string = "ValidLogin";
-  const validPassword: string = "12345678";
+  const validLogin = "ValidLogin";
+  const validPassword = "12345678";
 
   const login = document.getElementById("login") as HTMLInputElement;
   const password = document.getElementById("password") as HTMLInputElement;
@@ -12,7 +12,7 @@ document.getElementById("login-form")?.addEventListener("submit", function (e) {
   message.textContent = "";
   message.classList.remove("show", "error", "success");
 
-  let isValid: boolean = true;
+  let isValid = true;
 
   if (login.value.length < 5 || login.value.length > 20) {
     login.classList.add("shake");
