@@ -1,8 +1,47 @@
-document.getElementById("login-form")?.addEventListener("submit", function (e) {
-  e.preventDefault();
+function isLoginLengthValid(login: string): boolean {
+  return login.length >= 5 && login.length <= 20;
+}
 
+function isPasswordLengthValid(password: string): boolean {
+  return password.length >= 5 && password.length <= 20;
+}
+
+function isCredentialsValid(login: string, password: string): boolean {
   const validLogin = "ValidLogin";
   const validPassword = "12345678";
+  return login === validLogin && password === validPassword;
+}
+
+function saveLoginData(login: string, password: string) {
+  localStorage.setItem("login", login);
+  localStorage.setItem("password", password);
+}
+
+function clearLoginData() {
+  localStorage.removeItem("login");
+  localStorage.removeItem("password");
+}
+
+function loadLoginData(): { login: string; password: string } | null {
+  const login = localStorage.getItem("login");
+  const password = localStorage.getItem("password");
+  if (login && password) return { login, password };
+  return null;
+}
+
+function shakeElement(element: HTMLElement) {
+  element.classList.add("shake");
+  setTimeout(() => element.classList.remove("shake"), 300);
+}
+
+function showMessage(element: HTMLElement, text: string, type: "error" | "success") {
+  element.textContent = text;
+  element.classList.remove("show", "error", "success");
+  element.classList.add("show", type);
+}
+
+document.getElementById("login-form")?.addEventListener("submit", function (e) {
+  e.preventDefault();
 
   const login = document.getElementById("login") as HTMLInputElement;
   const password = document.getElementById("password") as HTMLInputElement;
@@ -16,61 +55,43 @@ document.getElementById("login-form")?.addEventListener("submit", function (e) {
 
   let isValid = true;
 
-  if (login.value.length < 5 || login.value.length > 20) {
-    login.classList.add("shake");
-    setTimeout(() => login.classList.remove("shake"), 300);
-    message.textContent = "Логин должен быть от 5 до 20 символов";
-    message.classList.add("show", "error");
+  if (!isLoginLengthValid(login.value)) {
+    shakeElement(login);
+    showMessage(message, "Логин должен быть от 5 до 20 символов", "error");
     isValid = false;
   }
 
-  if (isValid) {
-    if (password.value.length < 5 || password.value.length > 20) {
-      password.classList.add("shake");
-      setTimeout(() => password.classList.remove("shake"), 300);
-      message.textContent = "Пароль должен быть от 5 до 20 символов";
-      message.classList.add("show", "error");
-      isValid = false;
-    }
+  if (isValid && !isPasswordLengthValid(password.value)) {
+    shakeElement(password);
+    showMessage(message, "Пароль должен быть от 5 до 20 символов", "error");
+    isValid = false;
   }
 
-  if (isValid) {
-    if (login.value !== validLogin || password.value !== validPassword) {
-      message.textContent = "Неверный логин или пароль";
-      message.classList.add("show", "error");
-      login.classList.add("shake");
-      password.classList.add("shake");
-      setTimeout(() => {
-        login.classList.remove("shake");
-        password.classList.remove("shake");
-      }, 300);
+  if (isValid && !isCredentialsValid(login.value, password.value)) {
+    shakeElement(login);
+    shakeElement(password);
+    showMessage(message, "Неверный логин или пароль", "error");
+  }
+
+  if (isValid && isCredentialsValid(login.value, password.value)) {
+    showMessage(message, "Вы успешно вошли!", "success");
+    if (rememberCheckbox.checked) {
+      saveLoginData(login.value, password.value);
     } else {
-      message.textContent = "Вы успешно вошли!";
-      message.classList.add("show", "success");
-      if (rememberCheckbox.checked) {
-        localStorage.setItem("login", login.value);
-        localStorage.setItem("password", password.value);
-      } else {
-        localStorage.removeItem("login");
-        localStorage.removeItem("password");
-      }
+      clearLoginData();
     }
   }
 });
 
 window.onload = function () {
-  const savedLogin: string | null = localStorage.getItem("login");
-  const savedPassword: string | null = localStorage.getItem("password");
-
-  if (savedLogin && savedPassword) {
+  const savedData = loadLoginData();
+  if (savedData) {
     const login = document.getElementById("login") as HTMLInputElement;
     const password = document.getElementById("password") as HTMLInputElement;
-    const rememberCheckbox = document.getElementById(
-      "remember-checkbox",
-    ) as HTMLInputElement;
+    const rememberCheckbox = document.getElementById("remember-checkbox") as HTMLInputElement;
 
-    login.value = savedLogin;
-    password.value = savedPassword;
+    login.value = savedData.login;
+    password.value = savedData.password;
     rememberCheckbox.checked = true;
   }
 };
