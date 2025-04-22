@@ -1,33 +1,11 @@
-function isLoginLengthValid(login: string): boolean {
-  return login.length >= 5 && login.length <= 20;
-}
-
-function isPasswordLengthValid(password: string): boolean {
-  return password.length >= 5 && password.length <= 20;
-}
-
-function isCredentialsValid(login: string, password: string): boolean {
-  const validLogin = "ValidLogin";
-  const validPassword = "12345678";
-  return login === validLogin && password === validPassword;
-}
-
-function saveLoginData(login: string, password: string) {
-  localStorage.setItem("login", login);
-  localStorage.setItem("password", password);
-}
-
-function clearLoginData() {
-  localStorage.removeItem("login");
-  localStorage.removeItem("password");
-}
-
-function loadLoginData(): { login: string; password: string } | null {
-  const login = localStorage.getItem("login");
-  const password = localStorage.getItem("password");
-  if (login && password) return { login, password };
-  return null;
-}
+import {
+  isLoginLengthValid,
+  isPasswordLengthValid,
+  isCredentialsValid,
+  saveLoginData,
+  clearLoginData,
+  loadLoginData,
+} from "./loginLogic";
 
 function shakeElement(element: HTMLElement) {
   element.classList.add("shake");
