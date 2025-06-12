@@ -1,0 +1,14 @@
+.social-button {
+  margin: 0;
+  flex-grow: 1;
+}
+
+.social-button:hover {
+  cursor: pointer;
+  background-color: #555555;
+}
+
+.social-button:active {
+  background-color: #444444;
+  transform: scale(0.95);
+}
