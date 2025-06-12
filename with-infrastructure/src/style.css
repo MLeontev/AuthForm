@@ -59,7 +59,7 @@ input {
   margin-bottom: 15px;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   vertical-align: -1px;
   margin-right: 5px;
 }
@@ -94,23 +94,23 @@ button:focus {
   transform: scale(0.95);
 }
 
-button[type="submit"] {
+button[type='submit'] {
   background-color: #9942ff;
   color: #cccccc;
   border: none;
   font-weight: bold;
 }
 
-button[type="submit"]:hover {
+button[type='submit']:hover {
   background-color: #bb86fc;
   cursor: pointer;
 }
 
-button[type="submit"]:active {
+button[type='submit']:active {
   transform: scale(0.95);
 }
 
-button[type="submit"]:focus {
+button[type='submit']:focus {
   background-color: #bb86fc;
 }
 
