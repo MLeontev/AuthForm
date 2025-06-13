@@ -8,18 +8,22 @@ import {
   isPasswordLengthValid,
   isCredentialsValid,
 } from '../../utils/validation';
-import {
-  saveLoginData,
-  clearLoginData,
-  loadLoginData,
-} from '../../utils/storage';
 import * as React from 'react';
 import './LoginForm.css';
+import { useAuthStore } from "../../store/AuthStore.ts";
 
 function LoginForm() {
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
-  const [remember, setRemember] = useState(false);
+  const {
+    login,
+    password,
+    remember,
+    setCredentials,
+  } = useAuthStore();
+
+  const [localLogin, setLocalLogin] = useState(login);
+  const [localPassword, setLocalPassword] = useState(password);
+  const [localRemember, setLocalRemember] = useState(remember);
+
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState<'error' | 'success' | null>(
     null,
@@ -28,31 +32,29 @@ function LoginForm() {
   const [shakePassword, setShakePassword] = useState(false);
 
   useEffect(() => {
-    const saved = loadLoginData();
-    if (saved) {
-      setLogin(saved.login);
-      setPassword(saved.password);
-      setRemember(true);
+    if (remember) {
+      setLocalLogin(login);
+      setLocalPassword(password);
     }
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isLoginLengthValid(login)) {
+    if (!isLoginLengthValid(localLogin)) {
       setMessage('Логин должен быть от 5 до 20 символов');
       setShakeLogin(true);
       setTimeout(() => setShakeLogin(false), 300);
       setMessageType('error');
       return;
     }
-    if (!isPasswordLengthValid(password)) {
+    if (!isPasswordLengthValid(localPassword)) {
       setMessage('Пароль должен быть от 5 до 20 символов');
       setMessageType('error');
       setShakePassword(true);
       setTimeout(() => setShakePassword(false), 300);
       return;
     }
-    if (!isCredentialsValid(login, password)) {
+    if (!isCredentialsValid(localLogin, localPassword)) {
       setMessage('Неверный логин или пароль');
       setShakeLogin(true);
       setShakePassword(true);
@@ -63,9 +65,10 @@ function LoginForm() {
       setMessageType('error');
       return;
     }
+
+    setCredentials(localLogin, localPassword, localRemember);
     setMessage('Вы успешно вошли!');
     setMessageType('success');
-    remember ? saveLoginData(login, password) : clearLoginData();
   };
 
   return (
@@ -80,8 +83,8 @@ function LoginForm() {
       <TextInput
         id="login"
         label="Login"
-        value={login}
-        onChange={(e) => setLogin(e.target.value)}
+        value={localLogin}
+        onChange={(e) => setLocalLogin(e.target.value)}
         shake={shakeLogin}
       />
 
@@ -89,16 +92,16 @@ function LoginForm() {
         id="password"
         type="password"
         label="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        value={localPassword}
+        onChange={(e) => setLocalPassword(e.target.value)}
         shake={shakePassword}
       />
 
       <Checkbox
         id="remember"
         label="Remember me"
-        checked={remember}
-        onChange={(e) => setRemember(e.target.checked)}
+        checked={localRemember}
+        onChange={(e) => setLocalRemember(e.target.checked)}
       />
 
       <button type="submit" className="submit-button">
