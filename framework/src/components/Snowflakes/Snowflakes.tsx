@@ -7,8 +7,8 @@ const Snowflakes = () => {
     <div className="snow">
       {Array.from({ length: SNOWFLAKES_COUNT }).map((_, i) => {
         const fontSize = (Math.random() * (1.5 - 0.7) + 0.7).toFixed(1);
-        const duration = Math.floor(Math.random() * 11) + 20; // 20-30s
-        const delay = Math.floor(Math.random() * 22) - 1; // -1 to 20s
+        const duration = Math.floor(Math.random() * 11) + 20;
+        const delay = Math.floor(Math.random() * 22) - 1;
 
         return (
           <div
